@@ -1,0 +1,14 @@
+#carLink{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:8px 12px}
+#carLink[aria-current=page]{border-color:var(--user-accent);color:var(--user-accent)}
+.carPage{display:grid;gap:14px}.carPage .panel{margin:0;min-width:0}.carTop{background:linear-gradient(115deg,var(--user-tint),#171f30 78%)}
+.carPage h1{font-size:clamp(32px,5vw,54px);margin:8px 0 16px}.carPage h2{margin-top:0}
+.carPage label{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.carPage label input{width:auto;max-width:100%}
+.carPage .metrics{display:flex;flex-wrap:wrap;margin:16px 0}.carPage .metrics>div{flex:1 1 145px;min-width:0}
+.carActions,.carKey{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.carItem{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid #343b50;padding:12px 0}.carItem>div{flex:1}.carItem small{display:block;overflow-wrap:anywhere}.carItem summary{cursor:pointer}
+.carCharts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.carBars{max-height:400px;overflow:auto}.carBarRow{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:10px;width:100%;margin:4px 0;text-align:left}
+.carBarRow small{text-align:right}.carBarRow i{display:block;height:7px;border-radius:4px;margin:4px 0}.carBarRow i:first-child,.carKey i:first-child{background:#78cfbb}.carBarRow i:last-child,.carKey i:last-of-type{background:#f6b178}
+.carKey i,.carLegend i{height:9px;width:9px;border-radius:50%}.carRing{width:140px;height:140px;border-radius:50%;display:grid;place-items:center;margin:10px auto 18px}.carRing span{background:#1a2030;border-radius:50%;width:110px;height:110px;display:grid;align-content:center;text-align:center;font-size:13px}
+.carLegend{display:grid;align-items:center;grid-template-columns:9px 1fr auto 50px;gap:8px;border-top:1px solid #343b50;padding:8px 0}.carLegend small{text-align:right}
+@media(max-width:680px){.carCharts{grid-template-columns:1fr}#carLink{padding:7px}.carPage .metrics>div{flex-basis:40%}}

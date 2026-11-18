@@ -1,0 +1,41 @@
+@media screen{
+ .styleChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 20px}
+ .styleChoices button{display:grid;text-align:left;white-space:normal;gap:6px;padding:12px}
+ .styleChoices button[aria-pressed=true]{outline:2px solid var(--user-accent);outline-offset:-2px}
+ .styleSample{display:grid;grid-template:1fr 10px / 1fr 1fr;gap:4px;padding:6px;width:100%;height:44px;border-radius:5px;background:#262638;color:#a697da}
+ .styleSample>*{background:currentColor;opacity:.7;border-radius:2px}.styleSample em{grid-column:span 2;opacity:.4}
+ [data-style=estudio] .styleSample{background:#102821;color:#82c5a5;grid-template:1fr 1fr / 18% 1fr}
+ [data-style=estudio] .styleSample i{grid-row:span 2}[data-style=estudio] .styleSample em{grid-column:auto}
+ [data-style=marea] .styleSample{background:#102d43;color:#7fcdec;grid-template-rows:8px 1fr}
+ [data-style=marea] .styleSample i{grid-column:span 2}[data-style=marea] .styleSample em{grid-column:auto}
+ [data-style=cobre] .styleSample{background:#38241e;color:#e7aa84;grid-template:repeat(3,1fr)/1fr}
+ [data-style=cobre] .styleSample em{grid-column:auto}
+ html[data-app-style=estudio]{--bg:#0d1d19;--surface:#192d25;--line:#435e4e;--glow:#274b39;--theme-ink:#9ed3ae}
+ html[data-app-style=marea]{--bg:#091b2c;--surface:#122d41;--line:#355a70;--glow:#174967;--theme-ink:#8dd8f3}
+ html[data-app-style=cobre]{--bg:#211715;--surface:#322420;--line:#674c40;--glow:#59382a;--theme-ink:#efbd96}
+ html:not([data-app-style=original])[data-app-style] body{background:linear-gradient(145deg,var(--glow),var(--bg) 48%);background-attachment:fixed}
+ html:not([data-app-style=original])[data-app-style] :is(.deskHero,.dashboardCard,.panel,#nav){background:var(--surface);border-color:var(--line)}
+ html:not([data-app-style=original])[data-app-style] .deskHero{background:linear-gradient(110deg,var(--glow),var(--surface))}
+ html:not([data-app-style=original])[data-app-style] #nav .active{background:var(--glow);color:var(--theme-ink)}
+ [data-app-style=estudio] .dashCards{grid-template-columns:repeat(2,minmax(0,1fr))}
+ [data-app-style=marea] #nav{position:sticky;top:6px;bottom:auto;left:auto;transform:none;width:100%;margin:0 0 16px;justify-content:center}
+ [data-app-style=marea] .deskHero{justify-content:flex-end;text-align:right}
+ [data-app-style=marea] .heroActions{justify-content:flex-end}
+ [data-app-style=marea] .orbital{inset:0 40% 0 0;transform:scaleX(-1)}
+ [data-app-style=cobre] .dashCards{grid-template-columns:1fr}
+ [data-app-style=cobre] .dashboardCard{display:grid;grid-template-columns:minmax(100px,1fr) minmax(100px,2fr);align-items:center;gap:4px 14px}
+ [data-app-style=cobre] .dashboardCard .cardTop{grid-row:span 3}
+ [data-app-style=cobre] .dashboardCard :is(small,strong,.cardFoot){margin:0}
+ [data-app-style=cobre] .deskHero h1{font-family:Georgia,serif}
+ html.strongEdges[data-app-style] :is(.panel,#nav,.dashboardCard){border-color:#9daac3}
+}
+@media screen and (min-width:800px){
+ [data-app-style=estudio] main{display:grid;grid-template-columns:152px minmax(0,1fr);align-items:start;gap:18px}
+ [data-app-style=estudio] #nav{position:sticky;top:16px;bottom:auto;left:auto;transform:none;flex-direction:column;width:auto}
+ [data-app-style=estudio] #nav button{justify-content:flex-start}
+}
+@media screen and (max-width:799px){
+ [data-app-style=estudio] .dashboardCard{align-items:center;text-align:center}
+ [data-app-style=estudio] .cardTop{flex-direction:column}
+ [data-app-style=estudio] .cardTop>.glyph{display:none}
+}

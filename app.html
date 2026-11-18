@@ -1,0 +1,157 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kive · Espacio personal</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101613;color:#eaf0e7;font:16px Inter,"Segoe UI",sans-serif}header,main{max-width:1140px;margin:auto;padding:22px 5%}header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #354037}header strong{font-size:32px;letter-spacing:-2px}.mint,small{color:#bbdc95}small,.tag{font:12px Consolas,monospace;letter-spacing:1px;text-transform:uppercase}nav{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0 32px}button,select,input,textarea{font:inherit}button,select{border:1px solid #49564c;border-radius:8px;padding:10px 16px;color:inherit;background:#212c24;cursor:pointer}button:hover{border-color:#bada96}button:disabled{opacity:.4}button.active,.action{background:#c2e49c;color:#1a281c;border-color:transparent}h1,h2,h3,p{margin:0 0 14px}h1{font:normal clamp(42px,6vw,70px) Georgia,serif;letter-spacing:-2px}h2{font:normal 32px Georgia,serif}h3{font-size:21px}p{line-height:1.5;color:#b4bfb6}.hero,.card,.panel{border:1px solid #344337;border-radius:14px;padding:24px;background:#1b241e}.hero{position:relative;overflow:hidden;background:linear-gradient(115deg,#303e31,#425a48);padding:35px;margin-bottom:25px}.hero>*:not(.range){position:relative}.range{position:absolute;inset:0 0 0 33%;opacity:.85;background:linear-gradient(145deg,#a5bc91,#627e68);clip-path:polygon(0 100%,24% 52%,30% 62%,52% 13%,66% 54%,75% 35%,100% 68%,100% 100%)}.range:after{content:"";position:absolute;inset:0;background:#324b3b;clip-path:polygon(0 100%,26% 83%,43% 51%,51% 65%,73% 24%,100% 87%,100% 100%)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{text-align:left;display:block;width:100%}.card b{display:block;font:normal 27px Georgia,serif;margin:12px 0}.card span{color:#b8c4bb}.card small{display:flex;justify-content:space-between}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #354137}.panel{margin:15px 0}.panel label{display:block;margin:10px 0}.field,textarea{background:#101913;color:inherit;border:1px solid #59655b;border-radius:6px;padding:10px;max-width:100%}textarea{width:100%;height:100px}input[type=checkbox]{accent-color:#92b778}.book{display:grid;grid-template-columns:minmax(210px,.7fr) minmax(0,1.3fr);gap:20px}.paper{background:#f1efdf;color:#223c2e;padding:8%;aspect-ratio:210/297;position:relative;overflow-wrap:anywhere;border-top:9px solid #668357}.paper p{color:#384e40}.paper small{color:#4d684e}.paper h2{font-size:clamp(32px,4.8vw,60px);margin:25px 0}.paper h3{margin:22px 0 9px}.paper section{margin:24px 0}.paper .row{border-color:#c4cbbb}.paper footer{margin-top:28px;border-top:1px solid #99aa97;padding-top:10px;font:12px monospace}.coverart{position:relative;height:180px;background:#bdcdb1;overflow:hidden}.coverart .range{left:0}.qr{width:115px;background:white}.pager{display:flex;align-items:center;justify-content:space-between;margin:10px 0}.printset{display:none}@media(max-width:700px){header,main{padding:16px}.grid,.book{grid-template-columns:1fr}.hero{padding:24px}.range{opacity:.45}nav button{padding:8px 10px}.paper{padding:6%}}@media print{body{background:white}body>header,main{display:none}.printset{display:block}.paper{height:var(--height);width:100%;aspect-ratio:auto;padding:17mm;break-after:page;print-color-adjust:exact;-webkit-print-color-adjust:exact}.paper:last-child{break-after:auto}.paper h2{font-size:44pt}.coverart{height:70mm}}
+body{background:#0e1020;color:#eeefff}main{padding-bottom:110px}header,.row{border-color:#353950}.hero{background:linear-gradient(120deg,#332958,#203451);border-color:#4a4469}.range{background:linear-gradient(145deg,#bab0ed,#789edc)}.range:after{background:#475582}.card,.panel,button,select{background:#1d2034;border-color:#393e59}.field,textarea{background:#111426;border-color:#555b76}.mint,small{color:#c9b2ff}p,.card span{color:#c2c7dc}button.active,.action{background:#c5afff;color:#211834}input[type=checkbox],progress{accent-color:#ad92f4}progress{width:100%}.paper{background:white;color:#29233a;border-color:#8b68bb}.paper p{color:#413b51}.paper small{color:#71549a}nav{position:fixed;z-index:5;bottom:10px;left:50%;transform:translateX(-50%);margin:0;padding:6px;border:1px solid #525874;border-radius:14px;background:#181b30;flex-wrap:nowrap;box-shadow:0 6px 26px #090a18aa}nav button{white-space:nowrap;border-color:transparent}.panel input{max-width:100%}button:focus-visible,input:focus-visible{outline:3px solid #91bfff}.paper .range{opacity:.9}@media(max-width:680px){nav{width:98%;gap:0}nav button{flex:1;font-size:12px;padding:11px 2px}.panel input{display:inline-block}}@media print{nav{display:none}}
+</style><style id="size"></style><header><strong><span class="mint">◈</span> kive</strong><button id="dailyAlert" onclick="openToday()" aria-live="polite"></button></header><p id="storageWarning" role="alert" hidden></p><main><nav id="nav" aria-label="Áreas"></nav><div id="view"></div></main><div class="printset" id="printset"></div>
+<script>
+/*ENCODER*/
+const areas=['Inicio','Finanzas','Salud','Biblioteca','Kive Travel','Casa','Carro'];
+const sections=['Portada','Itinerario','Mapa','Checklist','Hotel','Presupuesto','Notas','QR'];
+const state={tab:0,moves:[['Ingreso de ejemplo',1600],['Compra semanal',-75]],notes:[['Ideas para el viaje','Llevar el cuaderno para dibujar las montañas.']],packed:[false,true,false],selected:sections.slice(),page:0,letter:false,url:'',allowed:false,book:false};
+const names=['Chaqueta impermeable','Botella reutilizable','Cuaderno de campo'];
+const days=['Llegada a Puerto Natales · Paseo por la costanera','Laguna Amarga · Caminata y picnic','Mirador del Cóndor · Regreso a la ciudad'];
+state.plan=days.map((title,index)=>({title,time:['15:00','08:00','09:30'][index]}));
+state.weights=[];
+state.budget=500;
+const by=id=>document.getElementById(id);
+const escapeText=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const money=value=>pesos(value)+' COP';
+const balance=()=>state.moves.reduce((sum,item)=>sum+item[1],0);
+const row=(a,b)=>'<div class="row"><span>'+a+'</span><b>'+b+'</b></div>';
+function go(index){if(index===1)ui.financeArea='Movimientos';state.tab=index;render();window.scrollTo(0,0)}
+function hero(label,title,detail){return '<div class="hero"><div class="range"></div><small>'+label+'</small><h1>'+title+'</h1><p>'+detail+'</p></div>'}
+function render(){
+ releaseTravelMap();
+ by('nav').innerHTML=areas.filter(name=>name!=='Casa'&&name!=='Carro').map(name=>{
+  const index=areas.indexOf(name);
+  return '<button aria-current="'+(state.tab===index?'page':'false')+'" class="'+(state.tab===index?'active':'')+'" onclick="go('+index+')">'+name+'</button>';
+ }).join('');
+ if(!state.tab){refreshInterface();return}
+ if(state.tab===6){carView();refreshInterface();return}
+ if(state.tab===5){homeView();refreshInterface();return}
+ if(state.tab===1)financeView();
+ if(state.tab===2)healthView();
+ if(state.tab===3)by('view').innerHTML=hero('Biblioteca','Mis notas','Ideas y apuntes de esta sesión.')+'<div class="grid">'+state.notes.map(([title,body])=>'<article class="panel"><h3>'+escapeText(title)+'</h3><p>'+escapeText(body)+'</p></article>').join('')+'</div><form class="panel" id="note"><h3>Nueva nota</h3><label>Título <input class="field" name="title" required maxlength="90"></label><label>Texto <textarea name="body" required></textarea></label><button class="action">Guardar nota</button></form>';
+ if(state.tab===4)travelView();
+ if(state.tab!==4)expandArea();
+ enrichArea();
+ refreshInterface();
+ if(by('movement'))setupMovement(by('movement'));
+ if(by('note'))by('note').onsubmit=event=>{event.preventDefault();const data=new FormData(event.target);state.notes.push([data.get('title'),data.get('body')]);render()};
+}
+function setupMovement(form){
+ const field=form.elements.amount;
+ field.addEventListener('beforeinput',event=>{
+  const start=field.selectionStart,end=field.selectionEnd;
+  if(event.inputType==='insertText'&&event.data==='.'){
+   event.preventDefault();
+   field.setRangeText(',',start,end,'end');
+   field.dispatchEvent(new Event('input',{bubbles:true}));
+  }
+  if(start!==end)return;
+  if(event.inputType==='deleteContentBackward'&&field.value[start-1]==='.')field.setSelectionRange(start-2,start);
+  if(event.inputType==='deleteContentForward'&&field.value[start]==='.')field.setSelectionRange(start,start+2);
+ });
+ field.addEventListener('paste',event=>{
+  const pasted=event.clipboardData?.getData('text').trim();
+  if(!pasted)return;
+  event.preventDefault();
+  let value=pasted;
+  if(/^\d+\.\d{1,2}$/.test(value))value=value.replace('.',',');
+  if(/^\d{1,3}(\.\d{3})+(,\d{1,2})?$/.test(value))value=value.replaceAll('.','');
+  if(!/^\d+(,\d{1,2})?$/.test(value)){
+   field.setCustomValidity('Pega un importe como 1.000.000,50.');field.reportValidity();return;
+  }
+  field.setRangeText(value,field.selectionStart,field.selectionEnd,'end');
+  field.dispatchEvent(new Event('input',{bubbles:true}));
+ });
+ function format(){
+  const position=field.selectionStart;
+  const digitsBefore=field.value.slice(0,position).replaceAll('.','').length;
+  const raw=field.value.replaceAll('.','');
+  if(!/^\d{0,12}(,\d{0,2})?$/.test(raw)){
+   field.setCustomValidity('Usa hasta 12 cifras enteras y dos centavos decimales.');return;
+  }
+  const [whole,decimal]=raw.split(',');
+  const grouped=whole.replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+  field.value=grouped+(decimal===undefined?'':','+decimal);
+  let caret=0,count=0;
+  while(caret<field.value.length&&count<digitsBefore){if(field.value[caret++]!=='.')count++}
+  field.setSelectionRange(caret,caret);
+  field.setCustomValidity(raw&&!(Number(raw.replace(',','.'))>0)?'Introduce un importe mayor que cero.':'');
+ }
+ field.addEventListener('input',format);
+ form.onsubmit=event=>{
+  event.preventDefault();format();if(!form.reportValidity())return;
+  const amount=Number(field.value.replaceAll('.','').replace(',','.'));
+  state.moves.push([form.elements.concept.value.trim(),amount*Number(form.elements.sign.value),form.elements.date.value,form.elements.category.value]);
+  ui.financeMonth=form.elements.date.value.slice(0,7);
+  render();
+ };
+}
+function schedule(){return state.plan.map((day,index)=>row('Día '+(index+1)+' · '+escapeText(day.time),escapeText(day.title))).join('')}
+function expandArea(){
+ const view=by('view');
+ if(state.tab===0){
+  const entries=[['Agenda','12 de marzo de 2027','Salida hacia Puerto Natales'],['Estudios','Fotografía de paisaje','Práctica pendiente: composición en exteriores'],['Negocios','Taller de encuadernación','Proyecto de ejemplo · Estimar materiales'],['Inventario','Equipo de excursión','1 mochila · 1 botella · 1 brújula'],['Vehículos','Bicicleta urbana','Próxima tarea: revisar frenos']];
+  view.insertAdjacentHTML('beforeend','<section class="panel"><h2>Más áreas</h2>'+entries.map(([area,title,detail])=>'<details><summary class="row" style="cursor:pointer">'+area+'　⌄</summary><h3>'+title+'</h3><p>'+detail+'</p></details>').join('')+'</section>');
+ }
+ if(state.tab===2&&ui.healthArea==='Progreso'){
+  const history=state.weights.filter(item=>item.weekly).slice().reverse(),previous=state.weights.filter(item=>!item.weekly);
+  const rows=items=>items.map(item=>row(dateLabel(item.date),item.kg.toLocaleString('es-CO')+' kg')).join('');
+  view.insertAdjacentHTML('beforeend','<section class="panel" id="weightForm"><h2>Evolución del peso</h2>'+rows(history)+(history.length?'':'<p>Aquí verás tus mediciones semanales.</p>')+(previous.length?'<details><summary>Historial anterior</summary>'+rows(previous)+'</details>':'')+'</section>');
+ }
+ if(state.tab===4&&!state.book){
+  view.insertAdjacentHTML('beforeend','<form class="panel" id="planForm"><h2>Editar itinerario</h2>'+state.plan.map((item,index)=>'<label>Día '+(index+1)+' · Hora <input class="field" type="time" required name="time'+index+'" value="'+escapeText(item.time)+'"></label><label>Actividad <input class="field" maxlength="120" required name="title'+index+'" value="'+escapeText(item.title)+'"></label>').join('')+'<button>Guardar itinerario</button></form>');
+  by('planForm').onsubmit=event=>{event.preventDefault();const fields=event.target.elements;state.plan=state.plan.map((item,index)=>({title:fields['title'+index].value,time:fields['time'+index].value}));render()};
+ }
+}
+function bookPanel(){return '<h2 style="margin-top:24px">Travel Book</h2><div class="book"><aside class="panel"><small>Brochure · Adventure</small><label>Papel <select onchange="state.letter=this.value===\'Carta\';preview()"><option>A4</option><option '+(state.letter?'selected':'')+'>Carta</option></select></label><h3>Secciones</h3>'+sections.map((name,index)=>'<label><input type="checkbox" '+(state.selected.includes(name)?'checked':'')+' onchange="toggleSection('+index+',this.checked)"> '+name+'</label>').join('')+'<label>Enlace para invitados<input type="url" class="field" placeholder="https://…" value="'+escapeText(state.url)+'" oninput="state.url=this.value;state.allowed=false;by(\'authorize\').checked=false;preview()"></label><label><input id="authorize" type="checkbox" '+(state.allowed?'checked':'')+' onchange="state.allowed=this.checked;preview()"> Autorizo incluir este enlace</label><p id="qrstatus"></p><button id="print" class="action" onclick="window.print()">Imprimir / Guardar PDF</button></aside><div><div class="pager"><button id="prev" aria-label="Página anterior" onclick="state.page--;preview()">←</button><span id="counter"></span><button id="next" aria-label="Página siguiente" onclick="state.page++;preview()">→</button></div><div id="sheet"></div></div></div>'}
+function toggleSection(index,on){const name=sections[index];state.selected=on?[...state.selected,name]:state.selected.filter(item=>item!==name);preview()}
+function validLink(){try{const url=new URL(state.url);return /^https?:$/.test(url.protocol)&&!url.username&&!url.password&&url.href.length<=512?url.href:''}catch{return ''}}
+function qr(link){const code=new Encoder(-1,1);code.addData(link);code.make();const count=code.moduleCount;let path='';code.modules.forEach((line,y)=>line.forEach((dark,x)=>{if(dark)path+='M'+(x+4)+' '+(y+4)+'h1v1h-1z'}));return '<svg class="qr" aria-label="QR del enlace autorizado" viewBox="0 0 '+(count+8)+' '+(count+8)+'" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="white"/><path d="'+path+'"/></svg>'}
+/*FEATURES*/
+const storageKey='kive.v1:'+location.pathname;
+const storageWarning=by('storageWarning');
+function warnStorage(message){storageWarning.hidden=false;storageWarning.textContent=message}
+function validRecord(record){
+ const pairList=(items,validValue)=>Array.isArray(items)&&items.every(pair=>Array.isArray(pair)&&pair.length===2&&typeof pair[0]==='string'&&validValue(pair[1]));
+ return record&&Number.isInteger(record.tab)&&record.tab>=0&&record.tab<areas.length
+  &&Array.isArray(record.moves)&&record.moves.every(item=>Array.isArray(item)&&typeof item[0]==='string'&&Number.isFinite(item[1])&&(item.length===2||((item.length===4||(item.length===5&&typeof item[4]==='string'))&&typeof item[2]==='string'&&typeof item[3]==='string')))&&pairList(record.notes,value=>typeof value==='string')
+  &&Array.isArray(record.packed)&&record.packed.length===names.length&&record.packed.every(value=>typeof value==='boolean')
+  &&Array.isArray(record.selected)&&record.selected.every(value=>sections.includes(value))
+  &&Number.isSafeInteger(record.page)&&typeof record.url==='string'
+  &&['allowed','book','letter'].every(key=>typeof record[key]==='boolean');
+}
+function restoreLocal(){
+ try{
+  const record=JSON.parse(localStorage.getItem(storageKey));
+  if(!validRecord(record))return false;
+  for(const key of Object.keys(state)){
+   if(!(key in record))continue;
+   if(key==='budget'&&!(Number.isFinite(record.budget)&&record.budget>0))continue;
+   if(key==='plan'&&!(Array.isArray(record.plan)&&record.plan.length===3&&record.plan.every(item=>item&&typeof item.title==='string'&&typeof item.time==='string')))continue;
+   if(key==='weights'&&!(Array.isArray(record.weights)&&record.weights.every(item=>item&&typeof item.date==='string'&&Number.isFinite(item.kg))))continue;
+   state[key]=record[key];
+  }
+  return true;
+ }catch{warnStorage('No se pudieron recuperar los datos de este navegador.');return false}
+}
+function saveLocal(){
+ try{
+  localStorage.setItem(storageKey,JSON.stringify(state));
+  storageWarning.hidden=true;
+ }catch{warnStorage('No se pudieron guardar los cambios. Solo estarán disponibles en esta sesión.')}
+}
+const hadLocalRecord=restoreLocal();
+initializePrototype();
+initializeHome();
+initializeFinance(hadLocalRecord);
+initializeHealth();
+render();
+for(const eventType of ['change','submit','click','input'])document.addEventListener(eventType,event=>{
+ if(eventType==='click'&&!event.target.closest('button'))return;
+ if(eventType==='input'&&event.target.type!=='url')return;
+ saveLocal();
+});
+</script></html>
